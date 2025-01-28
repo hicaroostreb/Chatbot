@@ -25,7 +25,7 @@ def webhook():
     waha.start_typing(chat_id=chat_id)
     history_messages = waha.get_history_messages(
         chat_id=chat_id,
-        limit=5,
+        limit=10,
     )
     response_message = ai_bot.invoke(
         history_messages=history_messages,

@@ -27,7 +27,7 @@ class AIBot:
             embedding_function=embedding,
         )
         return vector_store.as_retriever(
-            search_kwargs={"k": 30},
+            search_kwargs={"k": 10},
         )
 
     def __build_messages(self, history_messages, question):
@@ -52,15 +52,16 @@ class AIBot:
 
     def invoke(self, history_messages, question):
         SYSTEM_TEMPLATE = """
-        Responda as perguntas dos usuários com base no contexto abaixo.
         Você é um assistente especializado em tirar dúvidas sobre consórcios.
-        Tire dúvidas dos usuários que entrarem em contato, fornecendo informações claras e úteis 
-        sobre como os consórcios funcionam, seus benefícios, regras e particularidades.
-        Responda de forma natural, agradável e respeitosa. Seja objetivo nas respostas, com informações
-        claras e diretas. Foque em ser natural e humanizado, como um diálogo comum entre duas pessoas.
-        Leve em consideração também o histórico de mensagens da conversa com o usuário.
+        Seu objetivo é fornecer respostas curtas, objetivas e baseadas principalmente nas informações do contexto abaixo.
+
+        Dê prioridade ao conteúdo fornecido pela base de conhecimento do consórcio e, se possível, evite respostas extensas ou explicações
+        desnecessárias. Use o que está no contexto como base principal e, quando necessário, complemente com informações claras e concisas.
+
+        Se o contexto não fornecer informações diretas, faça o mínimo possível de suposições, e evite criar respostas longas ou imprecisas.
+
         Responda sempre em português brasileiro.
-        
+
         <context>
         {context}
         </context>
